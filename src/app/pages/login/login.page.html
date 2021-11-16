@@ -1,0 +1,35 @@
+<ion-content class="ion-padding">
+  <ion-card [style.width.px]="width-30">
+      <ion-list-header>
+        Login
+      </ion-list-header>
+    <form [formGroup]="loginForm" (ngSubmit)="loginClicked()">
+      <ion-item>
+        <ion-label position="floating"> Full Name</ion-label>
+        <ion-input formControlName="fullname"></ion-input>
+        <div class="error-text">
+          <small class="text-danger" *ngIf="
+     loginForm.get('fullname').invalid &&
+     (loginForm.get('fullname').touched ||
+       loginForm.get('fullname').dirty)
+   ">full name is required</small>
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"> Contact Number</ion-label>
+        <ion-input formControlName="contactNumber"></ion-input>
+        <div class="error-text">
+          <small class="text-danger" *ngIf="
+     loginForm.get('contactNumber').invalid &&
+     (loginForm.get('contactNumber').touched ||
+       loginForm.get('contactNumber').dirty)
+   ">Contact Number is required</small>
+        </div>
+      </ion-item>
+      <ion-button class="signin-btn btn-blue" size="medium" expand="block" type="submit" [disabled]="loading"><label
+          *ngIf="!loading">Log in </label>
+        <ion-spinner *ngIf="loading" color="#fff" name="dots"></ion-spinner>
+      </ion-button>
+    </form>
+  </ion-card>
+</ion-content>

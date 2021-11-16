@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Doctor Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <img [src]="doctor.img" />
+    </ion-row>
+    <ion-row class="details">
+      <ion-row class="ion-padding">
+        <ion-label>
+          <h1>{{doctor.name}}</h1>
+          <ion-label> {{doctor.speciality}}</ion-label>
+        </ion-label>
+      </ion-row>
+      <ion-row class="second-row ion-padding">
+        <ion-col size="4">
+          <div class="grid">
+            <ion-label>
+              <h2>{{doctor.rating}}</h2>
+              <p>Rating</p>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="grid">
+            <ion-label>
+              <h2>{{doctor.paitents}}</h2>
+              <p>Patients</p>
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="grid">
+            <ion-label>
+              <h2>{{doctor.experience}}</h2>
+              <p>Experience</p>
+            </ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="para">
+        <p>
+          {{doctor.description}}
+        </p>
+      </ion-row>
+    </ion-row>
+    <ion-card mode="md" class="ion-padding appointment-container" [style.width.px]="width-20">
+      <ion-row class="shedule" *ngIf="displayShedule">
+        <ion-row class="close-schedule">
+          <ion-label>Pick Your Schedule</ion-label>
+          <ion-icon (click)="displayShedule=false" name="close-circle"></ion-icon>
+        </ion-row>
+        <ion-segment [(ngModel)]="selecteddate" color="primary" scrollable mode="ios">
+          <ion-segment-button *ngFor="let date of dateslist">
+            {{date}}
+          </ion-segment-button>
+        </ion-segment>
+
+        <ion-row class="available-time">
+          <ion-col size="4" *ngFor="let time of doctor.slots">
+            <ion-chip [ngClass]="selectedtime===time ? 'active':''" color="primary" (click)="onChangeTime(time)">
+              {{time}}
+            </ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+      <ion-button (click)="onBookAppointment()" [disabled]="loading" shape="round" color="primary" expand="block">
+        <ion-icon slot="start" name="calendar-outline"> </ion-icon>
+        <ion-label>{{!displayShedule ? 'Book Appointment' :'Submit'}}</ion-label>
+        <ion-spinner *ngIf="loading" color="#fff" name="dots"></ion-spinner>
+      </ion-button>
+      
+    </ion-card>
+  </ion-grid>
+</ion-content>
